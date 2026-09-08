@@ -12,11 +12,14 @@
 <div class="app">
 
   <!-- ===================== SIDEBAR ===================== -->
-  <aside class="sidebar" id="sidebar">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
     <div class="sidebar-brand">
       <span class="brand-icon">
         <img src="geant-logo.svg" alt="GÉANT">
       </span>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+        <i class="icon" data-icon="close"></i>
+      </button>
     </div>
 
     <nav class="nav" id="nav">
@@ -64,11 +67,17 @@
     </button>
   </aside>
 
+  <!-- Backdrop shown behind the sidebar drawer on mobile -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
   <!-- ===================== MAIN ===================== -->
   <div class="main">
 
     <!-- Header -->
     <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+        <i class="icon" data-icon="menu"></i>
+      </button>
       <div class="topbar-spacer"></div>
       <div class="topbar-actions">
         <button class="icon-btn" id="notifBtn" aria-label="Notifications">

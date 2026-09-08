@@ -17,6 +17,8 @@ const ICONS = {
   db: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>',
   cap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8 12 4l10 4-10 4z"/><path d="M6 10.5v4.5c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M21 8v6.5"/></svg>',
   'chevron-left': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
   'chevron-down': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l7 7 7-7"/></svg>',
   bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg>',
   help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.3a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.2 1-1.2 2.1"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>',
@@ -358,9 +360,42 @@ function setupDropdowns() {
 }
 
 /* ---------------------------------------------------------- *
- * 9. Sidebar nav + collapse
+ * 9. Sidebar nav + collapse (desktop) + off-canvas drawer (mobile)
  * ---------------------------------------------------------- */
+const MOBILE_NAV_BREAKPOINT = 900;
+
 function setupSidebar() {
+  const app = document.querySelector('.app');
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebarClose = document.getElementById('sidebarClose');
+  const backdrop = document.getElementById('sidebarBackdrop');
+
+  function isMobile() {
+    return window.innerWidth <= MOBILE_NAV_BREAKPOINT;
+  }
+
+  function openMobileNav() {
+    app.classList.add('nav-open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    app.classList.remove('nav-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuToggle.addEventListener('click', () => {
+    if (app.classList.contains('nav-open')) closeMobileNav();
+    else openMobileNav();
+  });
+  sidebarClose.addEventListener('click', closeMobileNav);
+  backdrop.addEventListener('click', closeMobileNav);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {
       document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -369,12 +404,17 @@ function setupSidebar() {
       if (item.getAttribute('data-nav') !== 'home') {
         showToast(`${label}: section not built in this mockup`);
       }
+      if (isMobile()) closeMobileNav();
     });
   });
 
   const collapseBtn = document.getElementById('collapseBtn');
   collapseBtn.addEventListener('click', () => {
-    document.querySelector('.app').classList.toggle('collapsed');
+    app.classList.toggle('collapsed');
+  });
+
+  window.addEventListener('resize', () => {
+    if (!isMobile()) closeMobileNav();
   });
 }
 

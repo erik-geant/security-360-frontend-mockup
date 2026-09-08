@@ -92,6 +92,21 @@ button { font-family: inherit; cursor: pointer; }
 }
 .brand-icon { height: 48px; flex: none; display: flex; align-items: center; }
 .brand-icon img { height: 100%; width: auto; display: block; }
+
+.sidebar-close {
+  display: none;
+  margin-left: auto;
+  width: 38px; height: 38px;
+  flex: none;
+  border: 1px solid var(--border);
+  background: var(--bg-panel-2);
+  color: var(--text-dim);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-close .icon { width: 18px; height: 18px; }
+.sidebar-close:hover { color: var(--text); border-color: var(--accent); }
 .brand-text {
   font-weight: 700;
   font-size: 1.2rem;
@@ -155,6 +170,34 @@ button { font-family: inherit; cursor: pointer; }
 .collapse-btn:hover { background: var(--bg-panel-2); color: var(--text); }
 .collapse-icon { transition: transform .25s ease; width: 18px; height:18px; }
 .app.collapsed .collapse-icon { transform: rotate(180deg); }
+
+/* ============================== Mobile nav (hamburger + backdrop) ============================== */
+
+.menu-toggle {
+  display: none;
+  width: 40px; height: 40px;
+  flex: none;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+.menu-toggle .icon { width: 20px; height: 20px; }
+.menu-toggle:hover { border-color: var(--accent); }
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 16, .6);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.app.nav-open .sidebar-backdrop { opacity: 1; pointer-events: auto; }
 
 /* ============================== Topbar ============================== */
 
@@ -547,10 +590,91 @@ button { font-family: inherit; cursor: pointer; }
   .grid-5 .feed-card { grid-column: span 2; }
 }
 
+/* ---- Off-canvas navigation drawer (tablet & mobile) ---- */
+@media (max-width: 900px) {
+  .menu-toggle { display: flex; }
+  .sidebar-close { display: flex; }
+  .collapse-btn { display: none; }
+
+  .app .sidebar {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: min(84vw, 300px);
+    flex-basis: min(84vw, 300px);
+    height: 100dvh;
+    transform: translateX(-100%);
+    transition: transform .28s ease;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+  }
+  .app.collapsed .sidebar { width: min(84vw, 300px); flex-basis: min(84vw, 300px); }
+  .app.collapsed .brand-text,
+  .app.collapsed .nav-label,
+  .app.collapsed .collapse-label { display: initial; }
+  .app.collapsed .brand-icon img { height: 100%; width: auto; }
+
+  .app.nav-open .sidebar { transform: translateX(0); }
+  .app.nav-open .sidebar-backdrop { display: block; }
+
+  .nav-item { padding: 13px 12px; font-size: .95rem; }
+
+  .main { padding: 14px 14px 32px; }
+}
+
+@media (min-width: 901px) {
+  .sidebar-backdrop { display: none; }
+}
+
+/* ---- General tile / content tightening for tablets & phones ---- */
 @media (max-width: 720px) {
-  .sidebar { position: fixed; z-index: 100; left: 0; }
-  .main { padding: 16px; }
+  .main { padding: 12px 12px 28px; gap: 16px; }
+
   .grid-5 { grid-template-columns: 1fr; }
   .grid-5 .feed-card { grid-column: span 1; }
-  .hero-title-row { flex-wrap: wrap; }
+
+  /* Hero / splash */
+  .hero { padding: 24px 18px 26px; }
+  .hero-title-row { flex-wrap: nowrap; gap: 12px; margin-bottom: 16px; }
+  .hero-badge { width: 48px; height: 48px; }
+  .hero-title-row h1 { font-size: 1.4rem; }
+  .hero-subtitle { font-size: .85rem; }
+  .hero-welcome { font-size: 1.15rem; }
+  .hero-desc { font-size: .88rem; }
+
+  /* Topbar: keep it compact and thumb-friendly */
+  .topbar { gap: 8px; }
+  .topbar-actions { gap: 6px; }
+  .user-text { display: none; }
+  .user-block { padding: 6px; gap: 0; }
+  .user-block .icon { display: none; }
+  .icon-btn { width: 40px; height: 40px; }
+
+  /* Dropdown panels shouldn't overflow small viewports */
+  .dropdown-panel { width: min(92vw, 320px); }
+
+  /* Cards: single column, comfortable reading size */
+  .card { padding: 16px; }
+  .card-head h3 { font-size: .8rem; }
+  .gauge-value { font-size: 1.8rem; }
+  .findings-total { font-size: 2rem; }
+
+  /* Quick actions: 2-column grid of large tappable buttons instead of a squeezed row */
+  .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .quick-action { padding: 16px 12px; font-size: .82rem; min-height: 48px; }
+
+  /* Heat map: keep cells legible by scrolling horizontally instead of shrinking */
+  .heatmap-body { overflow-x: auto; padding-bottom: 4px; }
+  .heatmap-grid { min-width: 460px; }
+  .heatmap-xaxis-label { margin-left: 0; }
+
+  /* Trends chart needs room to breathe on narrow screens */
+  .trends-card canvas { max-height: 220px; }
+}
+
+@media (max-width: 420px) {
+  .hero-title-row h1 { font-size: 1.2rem; }
+  .hero-badge { width: 42px; height: 42px; }
+  .quick-actions { grid-template-columns: 1fr; }
+  .gauge-wrap { max-width: 160px; }
 }
