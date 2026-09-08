@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security 360 · GÉANT</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="#3fc1ff" stroke-width="2"/>
+          <circle cx="16" cy="16" r="4" fill="#3fc1ff"/>
+          <circle cx="16" cy="8" r="2" fill="#3fc1ff"/>
+        </svg>
+      </span>
+      <span class="brand-text">GÉANT</span>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-nav="home">
+        <span class="nav-icon"><i class="icon" data-icon="home"></i></span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-nav="intake">
+        <span class="nav-icon"><i class="icon" data-icon="book"></i></span>
+        <span class="nav-label">Intake Portal &amp; Knowledge Hub</span>
+      </button>
+      <button class="nav-item" data-nav="assessment">
+        <span class="nav-icon"><i class="icon" data-icon="clipboard"></i></span>
+        <span class="nav-label">Assessment Portal</span>
+      </button>
+      <button class="nav-item" data-nav="threat">
+        <span class="nav-icon"><i class="icon" data-icon="bolt"></i></span>
+        <span class="nav-label">Cyber Threat &amp; Incident Correlation</span>
+      </button>
+      <button class="nav-item" data-nav="monitoring">
+        <span class="nav-icon"><i class="icon" data-icon="eye"></i></span>
+        <span class="nav-label">Monitoring, Audit &amp; Peer Review</span>
+      </button>
+      <button class="nav-item" data-nav="supplier">
+        <span class="nav-icon"><i class="icon" data-icon="users"></i></span>
+        <span class="nav-label">Supplier &amp; Third-Party Security</span>
+      </button>
+      <button class="nav-item" data-nav="risk">
+        <span class="nav-icon"><i class="icon" data-icon="scale"></i></span>
+        <span class="nav-label">Risk Management &amp; Decision Support</span>
+      </button>
+      <button class="nav-item" data-nav="maturity">
+        <span class="nav-icon"><i class="icon" data-icon="chart"></i></span>
+        <span class="nav-label">Maturity Index &amp; Benchmarking</span>
+      </button>
+      <button class="nav-item" data-nav="repository">
+        <span class="nav-icon"><i class="icon" data-icon="db"></i></span>
+        <span class="nav-label">Repository</span>
+      </button>
+      <button class="nav-item" data-nav="training">
+        <span class="nav-icon"><i class="icon" data-icon="cap"></i></span>
+        <span class="nav-label">Training Hub</span>
+      </button>
+    </nav>
+
+    <button class="collapse-btn" id="collapseBtn">
+      <span class="collapse-icon"><i class="icon" data-icon="chevron-left"></i></span>
+      <span class="collapse-label">Collapse</span>
+    </button>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="topbar-spacer"></div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <i class="icon" data-icon="bell"></i>
+          <span class="badge" id="notifBadge">3</span>
+        </button>
+        <button class="icon-btn" id="helpBtn" aria-label="Help"><i class="icon" data-icon="help"></i></button>
+        <div class="user-block" id="userBlock">
+          <div class="user-text">
+            <span class="user-welcome">Welcome, Admin</span>
+            <span class="user-org">GÉANT</span>
+          </div>
+          <div class="avatar">A</div>
+          <i class="icon" data-icon="chevron-down"></i>
+        </div>
+      </div>
+
+      <!-- Notification dropdown -->
+      <div class="dropdown-panel" id="notifPanel">
+        <div class="dropdown-header">Notifications</div>
+        <div class="dropdown-item">
+          <span class="dot dot-red"></span>
+          <div><strong>Critical vulnerability</strong> detected in VPN appliance<br><small>2 hours ago</small></div>
+        </div>
+        <div class="dropdown-item">
+          <span class="dot dot-orange"></span>
+          <div><strong>Assessment overdue</strong>: Core Infrastructure Security<br><small>5 hours ago</small></div>
+        </div>
+        <div class="dropdown-item">
+          <span class="dot dot-blue"></span>
+          <div><strong>New supplier</strong> onboarding request received<br><small>1 day ago</small></div>
+        </div>
+        <div class="dropdown-footer"><a href="#">View all notifications →</a></div>
+      </div>
+
+      <!-- Help dropdown -->
+      <div class="dropdown-panel" id="helpPanel">
+        <div class="dropdown-header">Need help?</div>
+        <div class="help-text">Browse the Knowledge Hub, contact your GÉANT security liaison, or raise a support ticket.</div>
+        <div class="dropdown-footer"><a href="#">Open documentation →</a></div>
+      </div>
+
+      <!-- User dropdown -->
+      <div class="dropdown-panel" id="userPanel">
+        <button class="dropdown-link">Profile</button>
+        <button class="dropdown-link">Account settings</button>
+        <button class="dropdown-link">Sign out</button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="hero-title-row">
+          <span class="hero-badge">360°</span>
+          <div>
+            <h1>Security 360</h1>
+            <p class="hero-subtitle">Continuous Cyber Resilience</p>
+          </div>
+        </div>
+        <h2 class="hero-welcome">Welcome to Security 360</h2>
+        <p class="hero-desc">An integrated platform to manage cyber risks, ensure compliance and strengthen the resilience of the research and education community.</p>
+      </div>
+    </section>
+
+    <!-- Top card row -->
+    <section class="grid grid-5">
+
+      <div class="card">
+        <div class="card-head">
+          <h3>ORGANISATIONAL<br>RISK SCORE</h3>
+          <button class="info-btn" data-tip="Composite score derived from findings, compliance gaps and threat exposure across the organisation."><i class="icon" data-icon="info"></i></button>
+        </div>
+        <div class="gauge-wrap" id="gaugeRisk"></div>
+        <div class="gauge-caption">
+          <span class="gauge-value">58</span><span class="gauge-max">/100</span>
+        </div>
+        <div class="gauge-label medium">Medium</div>
+        <svg class="sparkline" id="sparkRisk" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+        <div class="delta up">↑ 6 vs last 30 days</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>COMPLIANCE STATUS</h3>
+          <button class="info-btn" data-tip="Current certification and regulatory compliance posture."><i class="icon" data-icon="info"></i></button>
+        </div>
+        <ul class="compliance-list">
+          <li><span>ISO 27001</span><span class="badge-pill success">Compliant <i class="icon" data-icon="check"></i></span></li>
+          <li><span>NIS2</span><span class="badge-pill success">Compliant <i class="icon" data-icon="check"></i></span></li>
+          <li><span>GDPR</span><span class="badge-pill warning">Partial <i class="icon" data-icon="warn"></i></span></li>
+        </ul>
+        <a class="card-link" href="#" data-toast="Navigating to Compliance page…">View compliance →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>OPEN FINDINGS</h3>
+          <button class="info-btn" data-tip="Findings currently open across all assessments and audits."><i class="icon" data-icon="info"></i></button>
+        </div>
+        <div class="findings-total">24</div>
+        <div class="findings-sub">Total open findings</div>
+        <ul class="findings-list">
+          <li><span>High</span><span class="tag tag-red">8</span></li>
+          <li><span>Medium</span><span class="tag tag-orange">11</span></li>
+          <li><span>Low</span><span class="tag tag-green">5</span></li>
+        </ul>
+        <a class="card-link" href="#" data-toast="Navigating to Findings register…">View all findings →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>SUPPLIER RISK OVERVIEW</h3>
+          <button class="info-btn" data-tip="Risk classification of third-party suppliers currently onboarded."><i class="icon" data-icon="info"></i></button>
+        </div>
+        <div class="donut-wrap">
+          <canvas id="supplierDonut" width="150" height="150"></canvas>
+          <div class="donut-center"><span>72</span><small>Suppliers</small></div>
+        </div>
+        <ul class="legend-list">
+          <li><span class="dot dot-red"></span>High Risk <b>12</b></li>
+          <li><span class="dot dot-orange"></span>Medium Risk <b>28</b></li>
+          <li><span class="dot dot-green"></span>Low Risk <b>32</b></li>
+        </ul>
+        <a class="card-link" href="#" data-toast="Navigating to Supplier portal…">Go to supplier portal →</a>
+      </div>
+
+      <div class="card feed-card">
+        <div class="card-head">
+          <h3>THREAT INTELLIGENCE FEED</h3>
+          <a class="card-link small" href="#" data-toast="Navigating to Threat Intelligence Feed…">View all →</a>
+        </div>
+        <ul class="feed-list">
+          <li>
+            <span class="feed-icon red"><i class="icon" data-icon="alert"></i></span>
+            <div><p>New critical vulnerability in commonly used VPN appliances</p><small>2 hours ago</small></div>
+          </li>
+          <li>
+            <span class="feed-icon yellow"><i class="icon" data-icon="sun"></i></span>
+            <div><p>Phishing campaign targeting education sector</p><small>5 hours ago</small></div>
+          </li>
+          <li>
+            <span class="feed-icon blue"><i class="icon" data-icon="info-solid"></i></span>
+            <div><p>CISA adds new IoCs to catalog</p><small>1 day ago</small></div>
+          </li>
+          <li>
+            <span class="feed-icon green"><i class="icon" data-icon="shield"></i></span>
+            <div><p>Ransomware activity trend is decreasing</p><small>2 days ago</small></div>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- Middle row -->
+    <section class="grid grid-3">
+
+      <div class="card heatmap-card">
+        <div class="card-head">
+          <h3>RISK HEAT MAP</h3>
+          <button class="info-btn" data-tip="Distribution of identified risks by likelihood and impact."><i class="icon" data-icon="info"></i></button>
+          <div class="heatmap-filters">
+            <select id="likelihoodOrder">
+              <option value="desc">Likelihood</option>
+              <option value="asc">Likelihood ↑</option>
+            </select>
+            <select id="impactOrder">
+              <option value="asc">Impact</option>
+              <option value="desc">Impact ↓</option>
+            </select>
+          </div>
+        </div>
+        <div class="heatmap-body">
+          <div class="heatmap-yaxis-label">Likelihood</div>
+          <div class="heatmap-grid" id="heatmapGrid"></div>
+        </div>
+        <div class="heatmap-xaxis-label">Impact</div>
+        <a class="card-link" href="#" data-toast="Navigating to full Risk Register…">View full risk register →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>SECURITY MATURITY SCORE</h3>
+          <button class="info-btn" data-tip="Overall maturity of security controls and processes, benchmarked against best practice frameworks."><i class="icon" data-icon="info"></i></button>
+        </div>
+        <div class="gauge-wrap" id="gaugeMaturity"></div>
+        <div class="gauge-caption">
+          <span class="gauge-value">67</span><span class="gauge-max">/100</span>
+        </div>
+        <div class="gauge-label developing">Developing</div>
+        <svg class="sparkline" id="sparkMaturity" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+        <div class="delta up">↑ 9 vs last 90 days</div>
+        <a class="card-link" href="#" data-toast="Navigating to Maturity Benchmarking…">View maturity benchmarking →</a>
+      </div>
+
+      <div class="card trends-card">
+        <div class="card-head">
+          <h3>THREAT TRENDS (30 DAYS)</h3>
+          <button class="info-btn" data-tip="Weekly volume of detected threat categories over the last 30 days."><i class="icon" data-icon="info"></i></button>
+          <button class="icon-btn small" id="trendsMenuBtn"><i class="icon" data-icon="dots"></i></button>
+        </div>
+        <canvas id="trendsChart" height="220"></canvas>
+      </div>
+
+    </section>
+
+    <!-- Bottom row -->
+    <section class="grid grid-2">
+
+      <div class="card quick-actions-card">
+        <div class="card-head"><h3>QUICK ACTIONS</h3></div>
+        <div class="quick-actions">
+          <button class="quick-action" data-toast="New assessment started">
+            <span class="qa-icon"><i class="icon" data-icon="clipboard-sm"></i></span>New Assessment
+          </button>
+          <button class="quick-action" data-toast="Incident report opened">
+            <span class="qa-icon warn"><i class="icon" data-icon="triangle"></i></span>Report Incident
+          </button>
+          <button class="quick-action" data-toast="Upload document dialog opened">
+            <span class="qa-icon"><i class="icon" data-icon="upload"></i></span>Upload Document
+          </button>
+          <button class="quick-action" data-toast="Invite supplier dialog opened">
+            <span class="qa-icon"><i class="icon" data-icon="userplus"></i></span>Invite Supplier
+          </button>
+          <button class="quick-action" data-toast="Report generation started">
+            <span class="qa-icon"><i class="icon" data-icon="file"></i></span>Generate Report
+          </button>
+        </div>
+      </div>
+
+      <div class="card activity-card">
+        <div class="card-head">
+          <h3>RECENT ACTIVITY</h3>
+          <a class="card-link small" href="#" data-toast="Navigating to full Activity log…">View all →</a>
+        </div>
+        <ul class="activity-list">
+          <li>
+            <span class="activity-icon success"><i class="icon" data-icon="check"></i></span>
+            <div><p>Assessment "Core Infrastructure Security" submitted</p></div>
+            <small>1 hour ago</small>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <footer class="app-footer">Security 360 mockup · GÉANT · For demonstration purposes only</footer>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="tooltip" id="tooltip"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
